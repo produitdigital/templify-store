@@ -30,7 +30,6 @@ p{
   color:#cbd5e1;
 }
 
-/* GRID */
 .grid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -38,7 +37,6 @@ p{
   margin-top:30px;
 }
 
-/* CARD */
 .card{
   background:#111827;
   padding:15px;
@@ -46,14 +44,9 @@ p{
   border-left:4px solid #3b82f6;
 }
 
-.card h3{
-  margin:0;
-  font-size:16px;
-}
+.card h3{ margin:0; font-size:16px; }
 
-.card small{
-  color:gray;
-}
+.card small{ color:gray; }
 
 .message{
   margin-top:10px;
@@ -62,7 +55,6 @@ p{
   white-space:pre-wrap;
 }
 
-/* BUTTONS */
 .btn{
   margin-top:10px;
   display:inline-block;
@@ -74,18 +66,14 @@ p{
   cursor:pointer;
 }
 
-.btn:hover{
-  background:#dc2626;
-}
+.btn:hover{ background:#dc2626; }
 
-/* LOADER */
 .loader{
   text-align:center;
   margin-top:30px;
   color:gray;
 }
 
-/* LOGOUT */
 #logoutBtn{
   position:fixed;
   top:20px;
@@ -99,9 +87,7 @@ p{
   cursor:pointer;
 }
 
-#logoutBtn:hover{
-  background:#dc2626;
-}
+#logoutBtn:hover{ background:#dc2626; }
 </style>
 
 </head>
@@ -116,12 +102,12 @@ p{
 <p>Manage all contact messages</p>
 
 <div id="messages" class="grid"></div>
-
 <div id="loader" class="loader">Loading messages...</div>
 
 </div>
 
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getFirestore,
@@ -137,14 +123,15 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* 🔥 FIREBASE CONFIG */
+/* 🔥 FIREBASE CONFIG (NOTIVA STORE) */
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "XXXX",
-  appId: "XXXX"
+  apiKey: "AIzaSyBFwxMznFt8basOqDELsilAupDG55-c4_M",
+  authDomain: "notiva-store.firebaseapp.com",
+  projectId: "notiva-store",
+  storageBucket: "notiva-store.firebasestorage.app",
+  messagingSenderId: "577146025738",
+  appId: "1:577146025738:web:8dac6ce52b2cc07a266cf3",
+  measurementId: "G-J6XZD55M9Y"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -154,7 +141,7 @@ const auth = getAuth(app);
 const container = document.getElementById("messages");
 const loader = document.getElementById("loader");
 
-/* 🔐 SECURITY GUARD */
+/* 🔐 SECURITY CHECK */
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = "admin-login.html";
@@ -194,13 +181,14 @@ async function loadMessages(){
   loader.style.display = "none";
 }
 
-/* 🗑️ DELETE MESSAGE */
+/* 🗑️ DELETE */
 window.deleteMessage = async function(id){
   await deleteDoc(doc(db, "messages", id));
   loadMessages();
 };
 
 loadMessages();
+
 </script>
 
 </body>
