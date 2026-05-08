@@ -168,3 +168,64 @@ footer {
 .btn:hover {
   background: #374151;
 }
+.cookie-banner{
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 14px;
+  padding: 18px;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.cookie-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cookie-content p{
+  margin: 5px 0 0;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.cookie-actions{
+  display: flex;
+  gap: 10px;
+}
+
+.btn-accept{
+  background:#22c55e;
+  border:none;
+  padding:10px 16px;
+  border-radius:10px;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.btn-accept:hover{
+  background:#16a34a;
+}
+
+.btn-decline{
+  background:transparent;
+  border:1px solid #374151;
+  padding:10px 16px;
+  border-radius:10px;
+  color:#cbd5e1;
+  cursor:pointer;
+}
+
+.btn-decline:hover{
+  background:#1f2937;
+}
