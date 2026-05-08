@@ -30,7 +30,6 @@ p{
   color:#cbd5e1;
 }
 
-/* FORM */
 form{
   margin-top:30px;
   background:#111827;
@@ -65,7 +64,6 @@ button:hover{
   background:#2563eb;
 }
 
-/* LOADER */
 .loader-overlay{
   display:none;
   position:fixed;
@@ -109,7 +107,6 @@ footer{
 <h1>📩 Contact Us</h1>
 <p>Send us a message and we will get back to you as soon as possible.</p>
 
-<!-- FORM -->
 <form id="contactForm">
 
   <input type="text" id="name" placeholder="Your Name" required>
@@ -122,7 +119,6 @@ footer{
 
 </div>
 
-<!-- LOADER -->
 <div class="loader-overlay" id="loader">
   <div class="spinner"></div>
 </div>
@@ -131,25 +127,25 @@ footer{
 <a href="index.html">← Home</a>
 </footer>
 
-<!-- FIREBASE + SCRIPT -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* 🔥 YOUR FIREBASE CONFIG (REPLACE THIS) */
+/* 🔥 FIREBASE CONFIG (NOTIVA STORE) */
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "XXXX",
-  appId: "XXXX"
+  apiKey: "AIzaSyBFwxMznFt8basOqDELsilAupDG55-c4_M",
+  authDomain: "notiva-store.firebaseapp.com",
+  projectId: "notiva-store",
+  storageBucket: "notiva-store.firebasestorage.app",
+  messagingSenderId: "577146025738",
+  appId: "1:577146025738:web:8dac6ce52b2cc07a266cf3",
+  measurementId: "G-J6XZD55M9Y"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* FORM SUBMIT */
+/* FORM */
 const form = document.getElementById("contactForm");
 const loader = document.getElementById("loader");
 
@@ -164,9 +160,9 @@ form.addEventListener("submit", async (e) => {
 
   try {
     await addDoc(collection(db, "messages"), {
-      name: name,
-      email: email,
-      message: message,
+      name,
+      email,
+      message,
       date: new Date()
     });
 
