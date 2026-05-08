@@ -7,25 +7,93 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: gray;
+  font-size: 18px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  display: block;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: #f1f1f1;
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  color: gray;
+}
+</style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h1 style="text-align:center; font-size:40px;">
-Simplify Your Life with Templates
-</h1>
+<!-- HERO SECTION -->
+<div class="hero">
 
-<p style="text-align:center; color:gray;">
-Digital tools to organize your life and boost productivity.
-</p>
+<!-- IMAGE STORE ONLINE (placeholder premium) -->
+<img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80" alt="Online Store">
 
+<h1>Simplify Your Life with Digital Templates</h1>
+<p>Organize your business, productivity and finances with powerful digital tools.</p>
+
+</div>
+
+<!-- PRODUCTS GRID -->
 <div class="grid grid-3" style="margin-top:40px;">
 
-<a href="freelance-budget.html" class="card">
-<h3>Freelance Budget Planner</h3>
-<p>Track income & expenses easily.</p>
+<!-- 🔥 MAIN PRODUCT -->
+<a href="freelance-money-os.html" class="card">
+<h3>💰 Freelance Money OS</h3>
+<p>Manage income, clients & expenses like a pro freelancer.</p>
 </a>
 
 <a href="meal-planner.html" class="card">
@@ -52,6 +120,7 @@ Digital tools to organize your life and boost productivity.
 
 </div>
 
+<!-- FOOTER -->
 <footer>
 <a href="about.html">About</a> |
 <a href="contact.html">Contact</a> |
