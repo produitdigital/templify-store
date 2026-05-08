@@ -128,6 +128,39 @@ footer {
 <a href="terms.html">Terms</a> |
 <a href="refund.html">Refund</a>
 </footer>
+  <div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-content">
+    <div>
+      <strong>🍪 We use cookies</strong>
+      <p>
+        We use cookies to improve your experience, analyze traffic, and personalize content.
+        By clicking “Accept”, you agree to our Privacy Policy.
+      </p>
+    </div>
+
+    <div class="cookie-actions">
+      <button onclick="acceptCookies()" class="btn-accept">Accept</button>
+      <button onclick="declineCookies()" class="btn-decline">Decline</button>
+    </div>
+  </div>
+  </div>
+  <script>
+function acceptCookies(){
+  localStorage.setItem("cookiesAccepted", "true");
+  document.getElementById("cookie-banner").style.display = "none";
+}
+
+function declineCookies(){
+  localStorage.setItem("cookiesAccepted", "false");
+  document.getElementById("cookie-banner").style.display = "none";
+}
+
+window.onload = function(){
+  if(localStorage.getItem("cookiesAccepted")){
+    document.getElementById("cookie-banner").style.display = "none";
+  }
+}
+  </script>
 
 </body>
 </html>
