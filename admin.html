@@ -242,9 +242,9 @@ async function loadMessages(){
 
         <small>
           🕒 ${
-            data.date?.toDate
-              ? data.date.toDate().toLocaleString()
-              : "No date"
+            data.createdAt?.toDate
+  ? data.createdAt.toDate().toLocaleString()
+  : "No date"
           }
         </small>
 
