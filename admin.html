@@ -44,9 +44,14 @@ p{
   border-left:4px solid #3b82f6;
 }
 
-.card h3{ margin:0; font-size:16px; }
+.card h3{
+  margin:0;
+  font-size:16px;
+}
 
-.card small{ color:gray; }
+.card small{
+  color:gray;
+}
 
 .message{
   margin-top:10px;
@@ -66,7 +71,9 @@ p{
   cursor:pointer;
 }
 
-.btn:hover{ background:#dc2626; }
+.btn:hover{
+  background:#dc2626;
+}
 
 .loader{
   text-align:center;
@@ -87,7 +94,9 @@ p{
   cursor:pointer;
 }
 
-#logoutBtn:hover{ background:#dc2626; }
+#logoutBtn:hover{
+  background:#dc2626;
+}
 </style>
 
 </head>
@@ -109,6 +118,7 @@ p{
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
 import {
   getFirestore,
   collection,
@@ -123,7 +133,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* 🔥 FIREBASE CONFIG (NOTIVA STORE) */
+/* 🔥 FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyBFwxMznFt8basOqDELsilAupDG55-c4_M",
   authDomain: "notiva-store.firebaseapp.com",
@@ -134,60 +144,155 @@ const firebaseConfig = {
   measurementId: "G-J6XZD55M9Y"
 };
 
+/* 🔥 INIT */
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+/* 📦 ELEMENTS */
 const container = document.getElementById("messages");
 const loader = document.getElementById("loader");
 
-/* 🔐 SECURITY CHECK */
-onAuthStateChanged(auth, (user) => {
+/* 🔐 AUTH CHECK */
+onAuthStateChanged(auth, async (user) => {
+
+  /* tsy connecté */
   if (!user) {
-    window.location.href = "admin-login.html";
+    window.location.replace("admin-login.html");
+    return;
   }
+
+  /* admin ihany */
+  if (
+    user.email !== "rasolojean44@gmail.com" &&
+    user.email !== "rjeantsioriniaina@gmail.com"
+  ) {
+
+    await signOut(auth);
+
+    alert("Access denied");
+
+    window.location.replace("admin-login.html");
+
+    return;
+  }
+
+  /* raha connecté */
+  loadMessages();
+
 });
 
 /* 🚪 LOGOUT */
 document.getElementById("logoutBtn").addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "admin-login.html";
+
+  try{
+
+    await signOut(auth);
+
+    container.innerHTML = "";
+
+    window.location.replace("admin-login.html");
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Logout failed");
+
+  }
+
 });
 
 /* 📩 LOAD MESSAGES */
 async function loadMessages(){
-  const querySnapshot = await getDocs(collection(db, "messages"));
 
-  container.innerHTML = "";
+  try{
 
-  querySnapshot.forEach((docItem) => {
-    const data = docItem.data();
+    const querySnapshot = await getDocs(collection(db, "messages"));
 
-    const card = document.createElement("div");
-    card.className = "card";
+    container.innerHTML = "";
 
-    card.innerHTML = `
-      <h3>👤 ${data.name}</h3>
-      <small>📧 ${data.email}</small>
-      <p class="message">${data.message}</p>
-      <small>🕒 ${data.date?.toDate ? data.date.toDate().toLocaleString() : "No date"}</small>
-      <br>
-      <button class="btn" onclick="deleteMessage('${docItem.id}')">Delete</button>
-    `;
+    if(querySnapshot.empty){
 
-    container.appendChild(card);
-  });
+      container.innerHTML = `
+        <p>No messages found.</p>
+      `;
 
-  loader.style.display = "none";
+      loader.style.display = "none";
+
+      return;
+    }
+
+    querySnapshot.forEach((docItem) => {
+
+      const data = docItem.data();
+
+      const card = document.createElement("div");
+
+      card.className = "card";
+
+      card.innerHTML = `
+        <h3>👤 ${data.name || "No name"}</h3>
+
+        <small>📧 ${data.email || "No email"}</small>
+
+        <p class="message">
+          ${data.message || "No message"}
+        </p>
+
+        <small>
+          🕒 ${
+            data.date?.toDate
+              ? data.date.toDate().toLocaleString()
+              : "No date"
+          }
+        </small>
+
+        <br>
+
+        <button class="btn" onclick="deleteMessage('${docItem.id}')">
+          Delete
+        </button>
+      `;
+
+      container.appendChild(card);
+
+    });
+
+    loader.style.display = "none";
+
+  }catch(error){
+
+    console.error(error);
+
+    loader.innerHTML = "Error loading messages.";
+
+  }
+
 }
 
-/* 🗑️ DELETE */
+/* 🗑️ DELETE MESSAGE */
 window.deleteMessage = async function(id){
-  await deleteDoc(doc(db, "messages", id));
-  loadMessages();
-};
 
-loadMessages();
+  const confirmDelete = confirm("Delete this message ?");
+
+  if(!confirmDelete) return;
+
+  try{
+
+    await deleteDoc(doc(db, "messages", id));
+
+    loadMessages();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Delete failed");
+
+  }
+
+};
 
 </script>
 
