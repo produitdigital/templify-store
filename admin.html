@@ -158,7 +158,7 @@ onAuthStateChanged(auth, async (user) => {
 
   /* tsy connecté */
   if (!user) {
-    window.location.replace("admin-login.html");
+    window.location.replace("login.html");
     return;
   }
 
@@ -172,7 +172,7 @@ onAuthStateChanged(auth, async (user) => {
 
     alert("Access denied");
 
-    window.location.replace("admin-login.html");
+    window.location.replace("login.html");
 
     return;
   }
@@ -191,7 +191,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 
     container.innerHTML = "";
 
-    window.location.replace("admin-login.html");
+    window.location.replace("login.html");
 
   }catch(error){
 
